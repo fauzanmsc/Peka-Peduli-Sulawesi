@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Camera, Send, LogOut, CheckCircle2, ShieldAlert } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 
 export default function VolunteerDashboard() {
@@ -18,6 +18,7 @@ export default function VolunteerDashboard() {
   const [location, setLocation] = useState('Mengambil lokasi GPS...')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const supabase = createClient()
 
   useEffect(() => {
     async function init() {

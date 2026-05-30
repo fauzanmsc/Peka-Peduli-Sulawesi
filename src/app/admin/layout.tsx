@@ -15,12 +15,13 @@ import {
   X,
   Heart
 } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const supabase = createClient()
 
   const handleLogout = async () => {
     try {

@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import { Download, Search, Filter } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 
 export default function AdminDonationsPage() {
   const [donations, setDonations] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('ALL')
+  const supabase = createClient()
 
   useEffect(() => {
     fetchDonations()

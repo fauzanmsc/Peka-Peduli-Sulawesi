@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit3, Trash2, Search, ExternalLink } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 
 export default function AdminCampaignsPage() {
   const [campaigns, setCampaigns] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const supabase = createClient()
 
   useEffect(() => {
     fetchCampaigns()

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ArrowLeft, CheckCircle2, Heart, CreditCard, User, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 
 export default function DonatePage() {
   const [step, setStep] = useState(1)
@@ -23,7 +23,8 @@ export default function DonatePage() {
   const [isLoadingCampaigns, setIsLoadingCampaigns] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-
+  
+  const supabase = createClient()
   const predefinedAmounts = [50000, 100000, 250000, 500000, 1000000]
 
   useEffect(() => {

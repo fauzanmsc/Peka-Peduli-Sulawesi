@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 
 export default function CampaignSlider() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [urgentCampaigns, setUrgentCampaigns] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const supabase = createClient()
 
   // Fetch data
   useEffect(() => {

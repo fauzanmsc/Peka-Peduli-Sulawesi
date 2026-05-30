@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Filter, AlertCircle, TrendingUp, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 
 export default function CampaignsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterTag, setFilterTag] = useState('Semua')
   const [campaigns, setCampaigns] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const supabase = createClient()
 
   const tags = ['Semua', 'Darurat Bencana', 'Kesehatan', 'Pendidikan', 'Infrastruktur']
 
@@ -20,6 +21,7 @@ export default function CampaignsPage() {
         const { data, error } = await supabase
           .from('campaigns')
           .select('*')
+          .eq('status', 'PUBLISHED')
           .order('created_at', { ascending: false })
         
         if (error) {

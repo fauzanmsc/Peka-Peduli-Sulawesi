@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/utils/supabase/client'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Save, X, Image as ImageIcon } from 'lucide-react'
@@ -11,6 +11,7 @@ import Link from 'next/link'
 export default function NewCampaignPage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const supabase = createClient()
   const [formData, setFormData] = useState({
     title: '',
     target_amount: '',
