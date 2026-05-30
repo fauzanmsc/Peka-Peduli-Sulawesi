@@ -49,13 +49,7 @@ export default function LoginPage() {
         }
       }
     } catch (error: any) {
-      if (error.message?.includes('Failed to fetch')) {
-        // Bypass login if Supabase is entirely unreachable (Demo Mode)
-        console.warn('Supabase Offline: Bypassing to Demo Mode')
-        router.push(loginType === 'ADMIN' ? '/admin' : '/volunteer/dashboard')
-      } else {
-        setErrorMsg(error.message || 'Gagal login. Periksa email dan password Anda.')
-      }
+      setErrorMsg(error.message || 'Gagal login. Pastikan kredensial benar dan URL Supabase aktif.')
     } finally {
       setIsLoading(false)
     }

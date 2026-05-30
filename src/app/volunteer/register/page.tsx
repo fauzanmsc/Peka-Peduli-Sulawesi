@@ -34,18 +34,31 @@ export default function RegisterPage() {
 
       if (error) throw error
 
-      // Registration successful. In production, they might need to confirm email.
-      // We will just push to dashboard for demo.
-      router.push('/volunteer/dashboard')
+      if (data.user) {
+        // Insert into volunteer_profiles
+        const { error: profileError } = await supabase
+          .from('volunteer_profiles')
+          .insert([
+            {
+              id: data.user.id, // Usually id matches auth.user
+              user_id: data.user.id,
+              full_name: fullName,
+            }
+          ])
+          
+        if (profileError) {
+          console.error("Gagal menyimpan profil:", profileError)
+          // We don't throw here to avoid blocking login if trigger already did it,
+          // but if it's empty, this insert will populate it.
+        }
+      }
+
+      // Registration successful.
+      alert("Registrasi Berhasil! Silakan masuk ke sistem.")
+      router.push('/login')
       
     } catch (error: any) {
-      if (error.message?.includes('Failed to fetch')) {
-        // Bypass login if Supabase is entirely unreachable (Demo Mode)
-        console.warn('Supabase Offline: Bypassing to Volunteer Dashboard Demo Mode')
-        router.push('/volunteer/dashboard')
-      } else {
-        setErrorMsg(error.message || 'Gagal mendaftar. Silakan coba lagi.')
-      }
+      setErrorMsg(error.message || 'Gagal mendaftar. Pastikan URL Supabase di .env Anda valid dan aktif.')
     } finally {
       setIsLoading(false)
     }
