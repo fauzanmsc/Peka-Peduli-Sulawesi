@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Heart, Mail, MapPin, Phone, Globe, Share2, MessageCircle } from 'lucide-react'
 
 export default function Footer() {
@@ -8,13 +9,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Col */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-primary/20 p-2 rounded-xl">
-                <Heart className="w-6 h-6 text-primary" strokeWidth={2.5} />
-              </div>
-              <span className="font-bold text-xl tracking-tight">
-                Peka Peduli <span className="text-primary">Sulawesi</span>
-              </span>
+            <Link href="/" className="flex items-center group">
+              <Image 
+                src="/logo.svg" 
+                alt="Peka Peduli Sulawesi" 
+                width={150} 
+                height={40} 
+                className="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity dark:hidden"
+              />
+              <Image 
+                src="/logo-light.svg" 
+                alt="Peka Peduli Sulawesi" 
+                width={150} 
+                height={40} 
+                className="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity hidden dark:block"
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
               Yayasan kemanusiaan independen yang berdedikasi untuk memberikan bantuan darurat, pemulihan, dan pemberdayaan masyarakat di seluruh pelosok Sulawesi.

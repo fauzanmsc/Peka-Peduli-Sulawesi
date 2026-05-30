@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { 
   LayoutDashboard, 
@@ -51,13 +52,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         }`}
       >
         <div className="h-16 flex items-center px-6 border-b border-gray-200">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-primary/20 p-1.5 rounded-lg">
-              <Heart className="w-5 h-5 text-primary" strokeWidth={2.5} />
-            </div>
-            <span className="font-bold text-lg tracking-tight text-text-main">
-              Admin <span className="text-primary">Panel</span>
-            </span>
+          <Link href="/" className="flex items-center group">
+            <Image 
+              src="/logo.svg" 
+              alt="Peka Peduli Sulawesi" 
+              width={140} 
+              height={36} 
+              className="h-7 w-auto dark:hidden"
+            />
+            <Image 
+              src="/logo-light.svg" 
+              alt="Peka Peduli Sulawesi" 
+              width={140} 
+              height={36} 
+              className="h-7 w-auto hidden dark:block"
+            />
           </Link>
           <button 
             className="ml-auto lg:hidden text-gray-500 hover:text-gray-700"
