@@ -23,8 +23,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter()
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/login')
+    try {
+      await supabase.auth.signOut()
+    } catch (e) {
+      console.warn("Supabase offline on logout")
+    } finally {
+      router.push('/login')
+    }
   }
 
   const menuItems = [

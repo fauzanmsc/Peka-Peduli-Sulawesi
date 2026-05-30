@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Navbar from '@/components/ui/Navbar'
 import Footer from '@/components/ui/Footer'
@@ -10,6 +10,13 @@ import ScrollToTop from '@/components/ui/ScrollToTop'
 export const metadata: Metadata = {
   title: 'Peka Peduli Sulawesi | Portal Kemanusiaan',
   description: 'Ekosistem digital untuk keterbukaan informasi publik, koordinasi relawan, dan penggalangan dana di wilayah Sulawesi.',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({

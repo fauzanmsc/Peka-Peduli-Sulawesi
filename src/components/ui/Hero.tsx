@@ -4,32 +4,45 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <div className="relative py-16 md:py-24 overflow-hidden mb-6 flex flex-col items-center justify-center text-center">
+    <div className="relative py-24 md:py-32 overflow-hidden mb-6 flex flex-col items-center justify-center text-center perspective-1000">
       
       {/* Background decorations matching the soft, clean design */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-background z-0" />
-      <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/5 rounded-full blur-[100px] z-0" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-72 h-72 bg-primary/10 rounded-full blur-[80px] z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-white dark:from-gray-900 dark:via-black dark:to-black z-0" />
+      
+      {/* Dynamic Glow Effects */}
+      <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/10 dark:bg-primary/20 rounded-full blur-[120px] z-0 animate-pulse-slow" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[100px] z-0" />
 
-      {/* Background pattern (optional, for the "faint fan" look in the user's screenshot, using a subtle radial gradient) */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-200/20 via-transparent to-transparent dark:from-gray-800/20 z-0" />
+      {/* Grid Pattern overlay for tech/modern feel */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03] dark:opacity-[0.05] z-0" />
 
-      <div className="relative z-10 max-w-4xl px-4 sm:px-6 lg:px-8">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4 leading-tight"
+      <div className="relative z-10 max-w-5xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+          className="inline-block mb-6 px-6 py-2 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 shadow-sm"
         >
-          Kami Peka, Kami Peduli <br className="hidden md:block" />
-          <span className="text-gray-900 dark:text-white">Untuk Kemanusiaan</span>
+          <span className="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">
+            #BersamaUntukSulawesi
+          </span>
+        </motion.div>
+
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.1] drop-shadow-sm"
+        >
+          Kami Peka, Kami Peduli{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">Untuk Kemanusiaan</span>
         </motion.h1>
 
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-xl md:text-3xl font-medium text-primary mb-6"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-2xl md:text-4xl font-bold text-primary mb-8 drop-shadow-sm"
         >
           Dari Kesadaran Menjadi Aksi Nyata
         </motion.h2>
@@ -37,8 +50,8 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-medium"
         >
           Dari sebuah inisiatif kecil yang penuh semangat, kami telah bertransformasi
           menjadi organisasi yang lebih matang, profesional, dan memiliki dampak yang

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -11,6 +12,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+
+  const pathname = usePathname()
 
   // Avoid hydration mismatch
   useEffect(() => setMounted(true), [])
@@ -27,20 +30,24 @@ export default function Navbar() {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
+  // Hide on login page
+  if (pathname === '/login') return null;
+
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white dark:bg-background border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <nav className="sticky top-0 z-50 w-full bg-white/70 dark:bg-gray-950/70 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center group relative">
+              <div className="absolute -inset-2 bg-primary/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <Image 
                 src="/logo.svg" 
                 alt="Peka Peduli Sulawesi" 
                 width={150} 
                 height={40} 
-                className="h-8 w-auto dark:hidden"
+                className="h-8 w-auto dark:hidden relative z-10 transition-transform duration-300 group-hover:scale-105"
                 priority
               />
               <Image 
@@ -48,19 +55,19 @@ export default function Navbar() {
                 alt="Peka Peduli Sulawesi" 
                 width={150} 
                 height={40} 
-                className="h-8 w-auto hidden dark:block"
+                className="h-8 w-auto hidden dark:block relative z-10 transition-transform duration-300 group-hover:scale-105"
                 priority
               />
             </Link>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors text-sm"
+                className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white font-medium transition-all duration-300 text-sm px-4 py-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800/50"
               >
                 {link.name}
               </Link>
@@ -68,27 +75,28 @@ export default function Navbar() {
           </div>
 
           {/* CTA Buttons & Theme Toggle */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {mounted && (
               <button
                 onClick={toggleTheme}
-                className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-full transition-colors"
+                className="p-2.5 text-gray-500 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white rounded-full transition-all duration-300 shadow-inner"
                 aria-label="Toggle Dark Mode"
               >
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
             )}
             <Link
               href="/login"
-              className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium text-sm transition-colors"
+              className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white font-semibold text-sm transition-colors px-3 py-2"
             >
               Portal Relawan
             </Link>
             <Link
               href="/donate"
-              className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all shadow-[0_4px_14px_0_rgba(229,62,62,0.39)] hover:shadow-[0_6px_20px_rgba(229,62,62,0.23)] hover:-translate-y-0.5 active:translate-y-0"
+              className="relative overflow-hidden group bg-primary text-white px-7 py-2.5 rounded-full font-bold text-sm transition-all shadow-[0_8px_25px_rgba(229,62,62,0.35)] hover:shadow-[0_12px_30px_rgba(229,62,62,0.45)] hover:-translate-y-0.5 active:translate-y-0"
             >
-              Donasi Sekarang
+              <span className="relative z-10">Donasi Sekarang</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
           </div>
 
@@ -124,11 +132,11 @@ export default function Navbar() {
               className="fixed inset-0 bg-black/50 z-40 md:hidden"
             />
             <motion.div
-              initial={{ x: '100%' }}
+              initial={{ x: '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              exit={{ x: '-100%' }}
               transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden flex flex-col"
+              className="fixed top-0 left-0 h-full w-[80%] max-w-sm bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden flex flex-col"
             >
               <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
                 <Image 

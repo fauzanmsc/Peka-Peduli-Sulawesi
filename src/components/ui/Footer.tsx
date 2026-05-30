@@ -1,14 +1,21 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { Heart, Mail, MapPin, Phone, Globe, Share2, MessageCircle } from 'lucide-react'
 
 export default function Footer() {
+  const pathname = usePathname()
+
+  if (pathname === '/login') return null;
+
   return (
-    <footer className="bg-text-main text-white pt-16 pb-8 border-t border-gray-800">
+    <footer className="bg-text-main dark:bg-black text-white pt-16 pb-8 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="flex flex-col md:flex-row flex-wrap lg:flex-nowrap gap-12 mb-12">
           {/* Brand Col */}
-          <div className="space-y-6">
+          <div className="space-y-6 w-full lg:w-1/3">
             <Link href="/" className="flex items-center group">
               <Image 
                 src="/logo.svg" 
@@ -25,7 +32,7 @@ export default function Footer() {
                 className="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity hidden dark:block"
               />
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
               Yayasan kemanusiaan independen yang berdedikasi untuk memberikan bantuan darurat, pemulihan, dan pemberdayaan masyarakat di seluruh pelosok Sulawesi.
             </p>
             <div className="flex gap-4">
@@ -41,52 +48,54 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold text-lg mb-6 text-gray-100">Jelajahi</h3>
-            <ul className="space-y-4">
-              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">Tentang Kami</Link></li>
-              <li><Link href="/campaigns" className="text-gray-400 hover:text-white transition-colors text-sm">Program & Kampanye</Link></li>
-              <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors text-sm">Berita Relawan</Link></li>
-              <li><Link href="/reports" className="text-gray-400 hover:text-white transition-colors text-sm">Laporan Transparansi</Link></li>
-            </ul>
-          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 w-full lg:w-2/3">
+            {/* Quick Links */}
+            <div>
+              <h3 className="font-semibold text-lg mb-6 text-gray-100">Jelajahi</h3>
+              <ul className="space-y-4">
+                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">Tentang Kami</Link></li>
+                <li><Link href="/campaigns" className="text-gray-400 hover:text-white transition-colors text-sm">Program & Kampanye</Link></li>
+                <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors text-sm">Berita Relawan</Link></li>
+                <li><Link href="/reports" className="text-gray-400 hover:text-white transition-colors text-sm">Laporan</Link></li>
+              </ul>
+            </div>
 
-          {/* Action Links */}
-          <div>
-            <h3 className="font-semibold text-lg mb-6 text-gray-100">Ambil Peran</h3>
-            <ul className="space-y-4">
-              <li><Link href="/donate" className="text-gray-400 hover:text-primary transition-colors text-sm font-medium">Donasi Sekarang</Link></li>
-              <li><Link href="/volunteer" className="text-gray-400 hover:text-white transition-colors text-sm">Daftar Relawan</Link></li>
-              <li><Link href="/login" className="text-gray-400 hover:text-white transition-colors text-sm">Portal Relawan</Link></li>
-              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">Hubungi Kami</Link></li>
-            </ul>
-          </div>
+            {/* Action Links */}
+            <div>
+              <h3 className="font-semibold text-lg mb-6 text-gray-100">Ambil Peran</h3>
+              <ul className="space-y-4">
+                <li><Link href="/donate" className="text-gray-400 hover:text-primary transition-colors text-sm font-medium">Donasi Sekarang</Link></li>
+                <li><Link href="/volunteer" className="text-gray-400 hover:text-white transition-colors text-sm">Daftar Relawan</Link></li>
+                <li><Link href="/login" className="text-gray-400 hover:text-white transition-colors text-sm">Portal Relawan</Link></li>
+                <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">Hubungi Kami</Link></li>
+              </ul>
+            </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-semibold text-lg mb-6 text-gray-100">Kantor Pusat</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-gray-400 text-sm leading-relaxed">
-                  Jl. Kemanusiaan No. 45, Kota Palu, Sulawesi Tengah 94111, Indonesia
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-gray-400 text-sm">+62 811 2233 4455</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-gray-400 text-sm">halo@pekapeduli.org</span>
-              </li>
-            </ul>
+            {/* Contact Info */}
+            <div className="col-span-2 sm:col-span-1">
+              <h3 className="font-semibold text-lg mb-6 text-gray-100">Kantor Pusat</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-400 text-sm leading-relaxed">
+                    Jl. Kemanusiaan No. 45, Kota Palu, Sulawesi Tengah 94111, Indonesia
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-gray-400 text-sm">+62 811 2233 4455</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-gray-400 text-sm">halo@pekapeduli.org</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Ticker / Bottom Bar */}
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-gray-500 text-sm text-center md:text-left">
             &copy; {new Date().getFullYear()} Yayasan Peka Peduli Sulawesi. All rights reserved.
           </p>

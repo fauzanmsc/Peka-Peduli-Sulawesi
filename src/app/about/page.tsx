@@ -37,26 +37,29 @@ export default function AboutPage() {
 
         {/* Visi & Misi */}
         <section className="mb-24 grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold flex items-center gap-3">
-              <Target className="w-8 h-8 text-primary" /> Visi & Misi
+          <div className="space-y-8 relative z-10">
+            <h2 className="text-4xl md:text-5xl font-black flex items-center gap-4 text-text-main dark:text-white drop-shadow-sm">
+              <div className="p-3 bg-primary/10 rounded-2xl shadow-inner border border-primary/20">
+                <Target className="w-8 h-8 text-primary" />
+              </div> 
+              Visi & Misi
             </h2>
-            <div className="p-8 border-l-4 border-primary bg-surface rounded-r-2xl shadow-sm">
-              <h3 className="text-xl font-bold text-text-main mb-3">Visi</h3>
-              <p className="text-text-muted leading-relaxed mb-6">
+            <div className="p-8 md:p-10 border-l-4 border-primary bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-r-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] border-y border-r border-gray-100/50 dark:border-gray-800/50 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
+              <h3 className="text-2xl font-bold text-text-main dark:text-white mb-4">Visi</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8 font-medium text-lg">
                 Menjadi lembaga kemanusiaan terdepan di Sulawesi yang responsif, transparan, dan berdampak nyata dalam membangun ketangguhan masyarakat menghadapi bencana dan krisis.
               </p>
-              <h3 className="text-xl font-bold text-text-main mb-3">Misi</h3>
-              <ul className="space-y-3">
+              <h3 className="text-2xl font-bold text-text-main dark:text-white mb-5">Misi</h3>
+              <ul className="space-y-4">
                 {[
                   'Menyalurkan bantuan tanggap darurat secara cepat dan tepat sasaran.',
                   'Memfasilitasi layanan kesehatan dan trauma healing bagi penyintas.',
                   'Membangun kembali infrastruktur pendidikan dan fasilitas umum.',
                   'Mengedukasi masyarakat tentang mitigasi dan kesiapsiagaan bencana.'
                 ].map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-text-main flex-shrink-0 mt-0.5" />
-                    <span className="text-text-muted text-sm">{item}</span>
+                  <li key={idx} className="flex items-start gap-3 bg-surface/50 dark:bg-gray-800/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700/50">
+                    <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -79,12 +82,12 @@ export default function AboutPage() {
           
           <div className="space-y-4">
             {legalDocs.map((doc, idx) => (
-              <div key={idx} className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+              <div key={idx} className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-white dark:bg-gray-900 shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-md transition-shadow">
                 <button 
                   onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
                   className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
                 >
-                  <span className="font-semibold text-lg text-text-main">{doc.title}</span>
+                  <span className="font-semibold text-lg text-text-main dark:text-white">{doc.title}</span>
                   <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${openAccordion === idx ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -95,7 +98,7 @@ export default function AboutPage() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-6 pt-0 border-t border-gray-100 text-text-muted bg-surface/50">
+                      <div className="p-6 pt-0 border-t border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 bg-surface/50 dark:bg-gray-800/30">
                         {doc.desc}
                       </div>
                     </motion.div>
@@ -140,18 +143,18 @@ export default function AboutPage() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
                   key={member.id}
-                  className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 group"
+                  className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-gray-100 dark:border-gray-800 group"
                 >
                   <div className="h-64 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: `url(${member.image})` }} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
-                  </div>
-                  <div className="p-6 relative -mt-10 bg-white mx-4 mb-4 rounded-2xl shadow-lg flex flex-col items-center text-center">
-                    <h3 className="font-bold text-lg text-text-main">{member.name}</h3>
-                    <p className="text-primary text-sm font-semibold mb-1">{member.role}</p>
-                    <span className="text-xs px-2 py-1 bg-surface rounded-md text-gray-500">{member.category}</span>
-                  </div>
-                </motion.div>
+                      <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: `url(${member.image})` }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
+                    </div>
+                    <div className="p-6 relative -mt-10 bg-white dark:bg-gray-900 mx-4 mb-4 rounded-2xl shadow-lg dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col items-center text-center border border-gray-50 dark:border-gray-800">
+                      <h3 className="font-bold text-lg text-text-main dark:text-white">{member.name}</h3>
+                      <p className="text-primary text-sm font-semibold mb-1">{member.role}</p>
+                      <span className="text-xs px-2 py-1 bg-surface dark:bg-gray-800 rounded-md text-gray-500 dark:text-gray-400">{member.category}</span>
+                    </div>
+                  </motion.div>
               ))}
             </AnimatePresence>
           </motion.div>
